@@ -9,8 +9,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5b5d683f04783a882180b7cd232a4e5cb2d01b305e145968e6062a71f66d5ead"
 
 [[package]]
+name = "cli_test_dir"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cc7e8a289c9ba144ed96a2f5776b320192ccb2f22212b9aabf61fd15dedb4b3a"
+
+[[package]]
 name = "competitive-rust-library"
 version = "0.1.0"
 dependencies = [
  "cargo-snippet",
+ "cli_test_dir",
 ]

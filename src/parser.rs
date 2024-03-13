@@ -2,22 +2,7 @@
 
 use cargo_snippet::snippet;
 
-#[snippet("read")]
-fn read() -> String {
-    let mut buf = String::new();
-    std::io::stdin().read_line(&mut buf).ok();
-    buf.trim().to_string()
-}
-
-#[snippet("read_all")]
-fn read_all() -> String {
-    use std::io::Read;
-    let mut buf = Vec::new();
-    std::io::stdin().read_to_end(&mut buf).ok();
-    String::from_utf8(buf).unwrap()
-}
-
-#[snippet("parse_all")]
+#[snippet]
 fn parse_all<T: std::str::FromStr>(s: String) -> Vec<T>
 where
     <T as std::str::FromStr>::Err: std::fmt::Debug,
@@ -27,8 +12,8 @@ where
         .collect::<Vec<T>>()
 }
 
-#[snippet("get_lines")]
-fn get_lines(s: String) -> Vec<String> {
+#[snippet]
+fn vectors(s: String) -> Vec<String> {
     s.lines().map(|x| x.to_string()).collect::<Vec<String>>()
 }
 
@@ -45,9 +30,9 @@ mod test {
     }
 
     #[test]
-    fn test_get_lines() {
+    fn test_vectors() {
         let input = String::from("Foo Bar\nFooBar\n");
         let res = vec!["Foo Bar".to_string(), "FooBar".to_string()];
-        assert_eq!(get_lines(input), res);
+        assert_eq!(vectors(input), res);
     }
 }
