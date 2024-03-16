@@ -1,3 +1,5 @@
+use cargo_snippet::snippet;
+
 fn main() {
     let s1 = read_one();
     let s2 = read_one();
@@ -5,6 +7,7 @@ fn main() {
     println!("{} {} {}", s1, s2, s3);
 }
 
+#[snippet]
 fn read_one() -> String {
     use std::io::{stdin, Read};
     let stdin = stdin();
