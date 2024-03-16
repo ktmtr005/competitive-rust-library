@@ -1,8 +1,12 @@
+use cargo_snippet::snippet;
+
+#[snippet("StdinReader")]
 struct StdinReader<R: std::io::BufRead> {
     reader: R,
     buf: Vec<u8>,
 }
 
+#[snippet("StdinReader")]
 impl<R: std::io::BufRead> StdinReader<R> {
     fn new(reader: R) -> Self {
         Self {
