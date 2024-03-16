@@ -43,7 +43,7 @@ impl<R: std::io::BufRead> StdinReader<R> {
                 }
             }
         }
-        std::str::from_utf8(&self.buf).expect("invalid utf-8 string")
+        unsafe { std::str::from_utf8_unchecked(&self.buf) }
     }
 }
 
