@@ -1,8 +1,11 @@
+use cargo_snippet::snippet;
+
 fn main() {
     let s = String::from("Yes");
     write(&s);
 }
 
+#[snippet]
 fn write(s: &str) {
     use std::io::{stdout, BufWriter, Write};
     let out = stdout();
