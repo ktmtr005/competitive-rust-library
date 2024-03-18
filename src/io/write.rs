@@ -2,11 +2,11 @@ use cargo_snippet::snippet;
 
 fn main() {
     let s = String::from("Yes");
-    write(&s);
+    write_line(&s);
 }
 
 #[snippet]
-fn write(s: &str) {
+fn write_line(s: &str) {
     use std::io::{stdout, BufWriter, Write};
     let out = stdout();
     let mut out = BufWriter::new(out.lock());
