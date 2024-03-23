@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 struct Scanner<R: std::io::BufRead> {
     reader: R,
     buf: Vec<u8>,
@@ -7,7 +8,7 @@ struct Scanner<R: std::io::BufRead> {
 impl<R: std::io::BufRead> Scanner<R> {
     fn new(reader: R, capacity: usize) -> Self {
         Scanner {
-            reader: reader,
+            reader,
             buf: Vec::with_capacity(capacity),
             pos: 0,
         }
