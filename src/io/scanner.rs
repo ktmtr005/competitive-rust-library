@@ -27,6 +27,9 @@ impl<R: std::io::BufRead> Scanner<R> {
         }
         let mut start = None;
         loop {
+            if self.pos == self.buf.len() {
+                break;
+            }
             match (self.buf[self.pos], start.is_some()) {
                 (b' ', true) | (b'\n', true) => break,
                 (_, true) | (b' ', false) => self.pos += 1,
@@ -55,8 +58,8 @@ mod test {
 
     #[test]
     fn test_scanner() {
-        let cursor = io::Cursor::new(b"123 -456\n0.123 Hello, World!\n");
-        let mut reader = Scanner::new(cursor, 27);
+        let cursor = io::Cursor::new(b"123 -456\n0.123 Hello, World!");
+        let mut reader = Scanner::new(cursor, 28);
 
         assert_eq!(123, reader.next::<u32>());
         assert_eq!(-456, reader.next::<i32>());
