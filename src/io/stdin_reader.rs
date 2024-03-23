@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use cargo_snippet::snippet;
 
 #[snippet("StdinReader")]
@@ -15,15 +16,15 @@ impl<R: std::io::BufRead> StdinReader<R> {
         }
     }
 
-    fn read_space(&mut self) -> String {
-        self.read_until(b' ').to_string()
+    fn read_space<T: std::str::FromStr>(&mut self) -> T {
+        self.read_until(b' ')
     }
 
-    fn read_line(&mut self) -> String {
-        self.read_until(b'\n').to_string()
+    fn read_line<T: std::str::FromStr>(&mut self) -> T {
+        self.read_until(b'\n')
     }
 
-    fn read_until(&mut self, delim: u8) -> &str {
+    fn read_until<T: std::str::FromStr>(&mut self, delim: u8) -> T {
         // self.bufに次のトークンをセットする
         loop {
             self.buf.clear();
@@ -43,28 +44,25 @@ impl<R: std::io::BufRead> StdinReader<R> {
                 }
             }
         }
-        unsafe { std::str::from_utf8_unchecked(&self.buf) }
+        let elem = unsafe { std::str::from_utf8_unchecked(&self.buf) };
+        elem.parse()
+            .unwrap_or_else(|_| panic!("{}", format!("failed parsing: {}", elem)))
     }
-}
-
-fn main() {
-    let mut reader = StdinReader::new(std::io::stdin().lock());
-    let s1 = reader.read_space();
-    let s2 = reader.read_line();
-    let s3 = reader.read_line();
-    println!("{} {}\n{}", s1, s2, s3);
 }
 
 #[cfg(test)]
 mod test {
-    use cli_test_dir::*;
+    use super::*;
+    use std::io;
+
     #[test]
-    fn test_stdin_reader() {
-        let testdir = TestDir::new("./stdin_reader", "");
-        let output = testdir
-            .cmd()
-            .output_with_stdin("a b c\nd e\n")
-            .expect_success();
-        assert_eq!(output.stdout_str(), "a b c\nd e\n");
+    fn test_reader() {
+        let cursor = io::Cursor::new(b"123 -456 0.123 Hello, World!");
+        let mut reader = StdinReader::new(cursor);
+
+        assert_eq!(123, reader.read_space::<u32>());
+        assert_eq!(-456, reader.read_space::<i32>());
+        assert_eq!(0.123f64, reader.read_space());
+        assert_eq!("Hello, World!".to_string(), reader.read_line::<String>());
     }
 }

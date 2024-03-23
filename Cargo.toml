@@ -21,9 +21,5 @@ name = "read"
 path = "src/io/read.rs"
 
 [[bin]]
-name = "stdin_reader"
-path = "src/io/stdin_reader.rs"
-
-[[bin]]
 name = "write"
 path = "src/io/write.rs"
