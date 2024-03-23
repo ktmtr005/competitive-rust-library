@@ -1,10 +1,14 @@
 #![allow(dead_code)]
+use cargo_snippet::snippet;
+
+#[snippet("Scanner")]
 struct Scanner<R: std::io::BufRead> {
     reader: R,
     buf: Vec<u8>,
     pos: usize,
 }
 
+#[snippet("Scanner")]
 impl<R: std::io::BufRead> Scanner<R> {
     fn new(reader: R, capacity: usize) -> Self {
         Scanner {
