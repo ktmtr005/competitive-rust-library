@@ -11,15 +11,3 @@ cargo-snippet = "0.6.5"
 
 [dev-dependencies]
 cli_test_dir = "0.1.8"
-
-[[bin]]
-name = "read_one"
-path = "src/io/read_one.rs"
-
-[[bin]]
-name = "read"
-path = "src/io/read.rs"
-
-[[bin]]
-name = "write"
-path = "src/io/write.rs"
