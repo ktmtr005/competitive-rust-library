@@ -10,7 +10,15 @@ struct Scanner<R: std::io::BufRead> {
 
 #[snippet("Scanner")]
 impl<R: std::io::BufRead> Scanner<R> {
-    fn new(reader: R, capacity: usize) -> Self {
+    fn new(reader: R) -> Self {
+        Scanner {
+            reader,
+            buf: Vec::new(),
+            pos: 0,
+        }
+    }
+
+    fn with_capacity(reader: R, capacity: usize) -> Self {
         Scanner {
             reader,
             buf: Vec::with_capacity(capacity),
@@ -59,7 +67,7 @@ mod test {
     #[test]
     fn test_scanner() {
         let cursor = io::Cursor::new(b"123 -456\n0.123 Hello, World!");
-        let mut reader = Scanner::new(cursor, 28);
+        let mut reader = Scanner::new(cursor);
 
         assert_eq!(123, reader.next::<u32>());
         assert_eq!(-456, reader.next::<i32>());
