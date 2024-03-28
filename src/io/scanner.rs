@@ -9,6 +9,7 @@ struct Scanner<R: std::io::BufRead> {
 }
 
 #[snippet("Scanner")]
+#[allow(dead_code)]
 impl<R: std::io::BufRead> Scanner<R> {
     fn new(reader: R) -> Self {
         Scanner {
