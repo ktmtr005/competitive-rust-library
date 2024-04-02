@@ -1,29 +1,7 @@
 #![allow(dead_code)]
 
+use crate::num_trait::zero::Zero;
 use cargo_snippet::snippet;
-trait Zero {
-    fn zero() -> Self;
-}
-
-#[snippet("Zero")]
-impl Zero for u32 {
-    fn zero() -> Self {
-        0
-    }
-}
-#[snippet("Zero")]
-impl Zero for u64 {
-    fn zero() -> Self {
-        0
-    }
-}
-#[snippet("Zero")]
-impl Zero for usize {
-    fn zero() -> Self {
-        0
-    }
-}
-
 #[snippet(include = "Zero")]
 #[snippet("gcd")]
 fn gcd<T>(a: T, b: T) -> T
