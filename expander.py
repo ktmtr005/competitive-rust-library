@@ -86,8 +86,8 @@ output_list = list(output_list)
 output_list.sort()
 
 output_data = []
+output_data.append('#[allow(dead_code)]')
 output_data.append('pub mod lib {')
-output_data.append('#![allow(dead_code)]')
 for i in output_list:
     buf = output_file(i)
     output_data.extend(buf)
