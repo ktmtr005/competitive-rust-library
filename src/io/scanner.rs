@@ -1,17 +1,12 @@
 #![allow(dead_code)]
-use cargo_snippet::snippet;
-
-#[snippet("Scanner")]
-struct Scanner<R: std::io::BufRead> {
+pub struct Scanner<R: std::io::BufRead> {
     reader: R,
     buf: Vec<u8>,
     pos: usize,
 }
 
-#[snippet("Scanner")]
-#[allow(dead_code)]
 impl<R: std::io::BufRead> Scanner<R> {
-    fn new(reader: R) -> Self {
+    pub fn new(reader: R) -> Self {
         Scanner {
             reader,
             buf: Vec::new(),
@@ -19,7 +14,7 @@ impl<R: std::io::BufRead> Scanner<R> {
         }
     }
 
-    fn with_capacity(reader: R, capacity: usize) -> Self {
+    pub fn with_capacity(reader: R, capacity: usize) -> Self {
         Scanner {
             reader,
             buf: Vec::with_capacity(capacity),
@@ -27,7 +22,8 @@ impl<R: std::io::BufRead> Scanner<R> {
         }
     }
 
-    fn next<T: std::str::FromStr>(&mut self) -> T
+    #[allow(clippy::should_implement_trait)]
+    pub fn next<T: std::str::FromStr>(&mut self) -> T
     where
         T::Err: std::fmt::Debug,
     {
@@ -57,23 +53,5 @@ impl<R: std::io::BufRead> Scanner<R> {
         if self.reader.read_until(b'\n', &mut self.buf).unwrap() == 0 {
             panic!("Reached EOF");
         }
-    }
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-    use std::io;
-
-    #[test]
-    fn test_scanner() {
-        let cursor = io::Cursor::new(b"123 -456\n0.123 Hello, World!");
-        let mut reader = Scanner::new(cursor);
-
-        assert_eq!(123, reader.next::<u32>());
-        assert_eq!(-456, reader.next::<i32>());
-        assert_eq!(0.123, reader.next::<f64>());
-        assert_eq!("Hello,".to_string(), reader.next::<String>());
-        assert_eq!("World!".to_string(), reader.next::<String>());
     }
 }

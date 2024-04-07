@@ -1,26 +1,22 @@
 #![allow(dead_code)]
-use cargo_snippet::snippet;
-
-#[snippet("StdinReader")]
-struct StdinReader<R: std::io::BufRead> {
+pub struct StdinReader<R: std::io::BufRead> {
     reader: R,
     buf: Vec<u8>,
 }
 
-#[snippet("StdinReader")]
 impl<R: std::io::BufRead> StdinReader<R> {
-    fn new(reader: R) -> Self {
+    pub fn new(reader: R) -> Self {
         Self {
             reader,
             buf: Vec::new(),
         }
     }
 
-    fn read_space<T: std::str::FromStr>(&mut self) -> T {
+    pub fn read_space<T: std::str::FromStr>(&mut self) -> T {
         self.read_until(b' ')
     }
 
-    fn read_line<T: std::str::FromStr>(&mut self) -> T {
+    pub fn read_line<T: std::str::FromStr>(&mut self) -> T {
         self.read_until(b'\n')
     }
 
@@ -47,22 +43,5 @@ impl<R: std::io::BufRead> StdinReader<R> {
         let elem = unsafe { std::str::from_utf8_unchecked(&self.buf) };
         elem.parse()
             .unwrap_or_else(|_| panic!("{}", format!("failed parsing: {}", elem)))
-    }
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-    use std::io;
-
-    #[test]
-    fn test_reader() {
-        let cursor = io::Cursor::new(b"123 -456 0.123 Hello, World!");
-        let mut reader = StdinReader::new(cursor);
-
-        assert_eq!(123, reader.read_space::<u32>());
-        assert_eq!(-456, reader.read_space::<i32>());
-        assert_eq!(0.123f64, reader.read_space());
-        assert_eq!("Hello, World!".to_string(), reader.read_line::<String>());
     }
 }

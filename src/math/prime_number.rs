@@ -1,8 +1,6 @@
 #![allow(dead_code)]
-use cargo_snippet::snippet;
 
-#[snippet]
-fn sieve_of_eratosthenes(end: usize) -> Vec<bool> {
+pub fn sieve_of_eratosthenes(end: usize) -> Vec<bool> {
     let mut is_prime = vec![true; end + 1];
     (is_prime[0], is_prime[1]) = (false, false);
     for i in 2..=((end as f64).sqrt() as usize) {

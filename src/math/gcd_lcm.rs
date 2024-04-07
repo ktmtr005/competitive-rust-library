@@ -1,10 +1,7 @@
 #![allow(dead_code)]
 
 use crate::num_trait::zero::Zero;
-use cargo_snippet::snippet;
-#[snippet(include = "Zero")]
-#[snippet("gcd")]
-fn gcd<T>(a: T, b: T) -> T
+pub fn gcd<T>(a: T, b: T) -> T
 where
     T: std::marker::Copy,
     T: std::cmp::Eq,
@@ -18,10 +15,7 @@ where
     }
 }
 
-#[snippet(include = "Zero")]
-#[snippet(include = "gcd")]
-#[snippet("lcm")]
-fn lcm<T>(a: T, b: T) -> T
+pub fn lcm<T>(a: T, b: T) -> T
 where
     T: std::marker::Copy,
     T: std::ops::Mul<Output = T>,
