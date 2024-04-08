@@ -1,6 +1,26 @@
-#![allow(dead_code)]
-pub fn fastout(s: &str) {
-    use std::io::{stdout, BufWriter, Write};
-    let mut out = BufWriter::new(stdout().lock());
-    writeln!(out, "{}", s).expect("failed to write data.");
+#[macro_export]
+macro_rules! bufwrite {
+    ($($arg:tt)*) => {{
+        use ::std::io::{BufWriter, Write};
+        let mut out = BufWriter::new(::std::io::stdout().lock());
+        ::std::write!(out, $($arg)*).unwrap();
+    }};
+}
+
+#[macro_export]
+macro_rules! bufwriteln {
+    ($($arg:tt)*) => {{
+            use ::std::io::{BufWriter, Write};
+            let mut out = BufWriter::new(::std::io::stdout().lock());
+            ::std::writeln!(out, $($arg)*).unwrap();
+        }};
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_write() {
+        bufwrite!("{}\n", 1);
+        bufwriteln!("{}", 2);
+    }
 }
