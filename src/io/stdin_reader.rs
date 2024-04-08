@@ -30,9 +30,9 @@ impl<R: std::io::BufRead> StdinReader<R> {
                 .expect("failed to reading bytes");
             match len {
                 0 => panic!("early eof"),
-                1 if self.buf[0] == delim => (), //区切り文字だけなのでもう一度ループ
+                1 if self.buf[0] == delim => (), // only a delimiter, so loop again
                 _ => {
-                    // 最後の文字が区切り文字なら削除
+                    // remove delimiter
                     if self.buf[len - 1] == delim {
                         self.buf.truncate(len - 1);
                     }
