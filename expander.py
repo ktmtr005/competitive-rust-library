@@ -13,7 +13,7 @@ Output Modules:
     num_trait
 
 You can select multiple modules for <output modules>
-    e.g.) expand.py io math
+    e.g.) expander.py io math
 
 Options:
     -a --all        import all modules
