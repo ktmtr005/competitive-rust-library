@@ -21,7 +21,7 @@ impl<R: std::io::BufRead> StdinReader<R> {
     }
 
     fn read_until<T: std::str::FromStr>(&mut self, delim: u8) -> T {
-        // self.bufに次のトークンをセットする
+        // set a next token to self.buf
         loop {
             self.buf.clear();
             let len = self
