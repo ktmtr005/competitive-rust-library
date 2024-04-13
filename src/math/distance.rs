@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-fn dist2<T>(&(x1, y1): &(T, T), &(x2, y2): &(T, T)) -> T
+pub fn dist2<T>(&(x1, y1): &(T, T), &(x2, y2): &(T, T)) -> T
 where
     T: Copy,
     T: std::ops::Add<Output = T>,
