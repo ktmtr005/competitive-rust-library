@@ -1,3 +1,4 @@
+pub mod float;
 pub mod io;
 pub mod math;
 pub mod num_trait;
