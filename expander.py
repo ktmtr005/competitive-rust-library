@@ -8,6 +8,7 @@ import os
 
 usage = '''Usage: expander.py [options] <output modules>
 Output Modules:
+    float
     io
     math
     num_trait
@@ -23,7 +24,7 @@ Options:
 '''
 output_header = '// https://github.com/ktmtr005/competitive-rust-library\n'
 opt_list = ['help', 'all', 'output=']
-output_list_all = ('io', 'math', 'num_trait')
+output_list_all = ('float', 'io', 'math', 'num_trait')
 dependency_list = {'math': ('num_trait',)}
 src_path = 'src/'
 output_path = None
