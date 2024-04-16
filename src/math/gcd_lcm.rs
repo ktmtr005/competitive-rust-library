@@ -1,14 +1,13 @@
 #![allow(dead_code)]
 
-use crate::num_trait::zero::Zero;
 pub fn gcd<T>(a: T, b: T) -> T
 where
     T: std::marker::Copy,
     T: std::cmp::Eq,
     T: std::ops::Rem<Output = T>,
-    T: Zero,
+    T: std::default::Default,
 {
-    if b == T::zero() {
+    if b == T::default() {
         a
     } else {
         gcd::<T>(b, a % b)
@@ -22,7 +21,7 @@ where
     T: std::ops::Div<Output = T>,
     T: std::ops::Rem<Output = T>,
     T: std::cmp::Eq,
-    T: Zero,
+    T: std::default::Default,
 {
     a / gcd::<T>(a, b) * b
 }
